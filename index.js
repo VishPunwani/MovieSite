@@ -78,5 +78,24 @@ async function loadMoreResults() {
     page++;
     const searchTerm = query.value;
     const url = searchTerm ? `${searchURL}${searchTerm}&page=${page}` : `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${apiKey}&page=${page}`;
+    await fetchAndShowSearchResults(url);
+}
 
+function detectEnd(){
+    const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
+    if(scrollHeight + clientHeight >= scrollHeight - 20){
+        loadMoreResults();
+    }
+}
+
+async function handleSearch(e){
+    e.preventDefault();
+    const searchTerm = query.value.trim();
+    if(searchTerm){
+        isSearching = true;
+        clearResults();
+        const newURL = `${searchURL}${searchTerm}&page=${page}`;
+        await fetchAndShowSearchResults(newURL);
+        query.value=""
+    }
 }
