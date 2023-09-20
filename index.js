@@ -26,4 +26,13 @@ async function fetchAndShowResults(url) {
     if (data && data.results) {
         showResults(data.results);
     }
+    console.log(showResults)
+}
+
+function createMovieCard(movie){
+    const{posterPath, originalTitle, releaseDate, overview} = movie;
+    const imagePath = posterPath ? imgAPI + posterPath : "./img-01.jpeg";
+    const truncatedTitle = originalTitle.length > 15 ? originalTitle.slice(0 , 15)
+ + "..." : originalTitle
+
 }
