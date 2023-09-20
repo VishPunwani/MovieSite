@@ -7,3 +7,23 @@ const result = document.getElementById('result');
 
 let page = 1;
 let isSearching = false;
+
+async function fetchData(url) {
+    try{
+        const response = await fetch(url);
+        if(!response.ok){
+            throw new Error('Network response failed');
+        }
+        return await response.json();
+    } catch(error){
+        return null;
+    }
+}
+
+
+async function fetchAndShowResults(url) {
+    const data = await fetchData(url);
+    if (data && data.results) {
+        showResults(data.results);
+    }
+}
